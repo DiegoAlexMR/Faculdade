@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+
+int eh_perfeito(int n) {
+    int soma_divisores = 1; 
+    for (int i = 2; i * i <= n; i++) {
+        if (n % i == 0) {
+            soma_divisores += i;
+            if (i * i != n) {  
+                soma_divisores += n / i;
+            }
+        }
+    }
+    return soma_divisores == n;
+}
+
+int main() {
+    int numeros[10];
+    int maior_perfeito = -1;
+    printf("Digite 10 números inteiros (entre 1 e 10000):\n");
+    for (int i = 0; i < 10; i++) {
+        scanf("%d", &numeros[i]);
+        if (numeros[i] < 1 || numeros[i] > 10000) {
+            printf("Digite um número entre 1 e 10000.\n");
+            i--;
+            continue;
+        }
+        if (eh_perfeito(numeros[i])) {
+            if (numeros[i] > maior_perfeito) {
+                maior_perfeito = numeros[i];
+            }
+            printf("%d é um número perfeito, a soma de seus divisores próprios é %d.\n", numeros[i], numeros[i]-1);
+        } else {
+            printf("%d não é um número perfeito, a soma de seus divisores próprios é %d.\n", numeros[i], numeros[i]-1);
+        }
+    }
+    if (maior_perfeito != -1) {
+        printf("O maior número perfeito digitado foi %d.\n", maior_perfeito);
+    } else {
+        printf("Não foi digitado nenhum número perfeito.\n");
+    }
+    return 0;
+}
